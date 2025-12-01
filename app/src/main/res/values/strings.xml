@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Notes App</string>
-    <string name="menu_add">Add Note</string>
-    <string name="menu_delete">Delete Note</string>
-    <string name="hint_title">Enter note title</string>
-    <string name="hint_content">Enter note content</string>
-    <string name="btn_save">Save Note</string>
+    <string name="app_name">NotesApp</string>
+
+    <string name="btn_delete_note">Delete Note</string>
+    <string name="title_edit_note">Edit Note</string>
+    <string name="hint_note_title">Enter title</string>
+    <string name="hint_note_content">Enter content</string>
+    <string name="btn_save_edit">Save</string>
 </resources>

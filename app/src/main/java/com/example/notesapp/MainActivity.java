@@ -3,14 +3,7 @@ package com.example.notesapp;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
-
+import android.widget.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,12 +13,13 @@ public class MainActivity extends AppCompatActivity {
     private EditText etNote;
     private Button btnAdd, btnDelete;
     private ListView lvNotes;
+
     private ArrayList<String> noteList;
     private ArrayAdapter<String> adapter;
     private SharedPreferences prefs;
     private LinkedHashMap<String, String> notesMap;
 
-    private int selectedPosition = -1;  // no note selected initially
+    private int selectedPosition = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
         loadNotes();
 
-        // add new note
         btnAdd.setOnClickListener(v -> addNote());
-
-        // delete selected note
         btnDelete.setOnClickListener(v -> deleteSelectedNote());
 
-        // when user clicks on a note, select it
         lvNotes.setOnItemClickListener((parent, view, position, id) -> {
             selectedPosition = position;
             lvNotes.setItemChecked(position, true);
@@ -69,10 +59,7 @@ public class MainActivity extends AppCompatActivity {
             notesMap.put(entry.getKey(), entry.getValue().toString());
         }
 
-        for (String value : notesMap.values()) {
-            noteList.add(value);
-        }
-
+        noteList.addAll(notesMap.values());
         adapter.notifyDataSetChanged();
     }
 
@@ -94,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteSelectedNote() {
         if (selectedPosition == -1) {
-            Toast.makeText(this, "Please select a note to delete", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select a note to delete", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String keyToDelete = (String) notesMap.keySet().toArray()[selectedPosition];
+
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(keyToDelete);
         editor.apply();
